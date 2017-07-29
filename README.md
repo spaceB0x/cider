@@ -24,10 +24,10 @@ Which should find all of the necessary dependencies listed in the package.json f
 node index.js
 ```
 
-#### GitHub configuration
+## GitHub configuration
 You must have a GitHub account from which to launch these attacks. The idea being that your attacker account makes malicous pull requests against a target GitHub repository to test and exploit misconfigurations. Additionally you must have and OAuth application configured such that you can issue personal tokens from gitHub. CIDER will take care of generating a token for you, but the feature must be enabled in GitHub.
 
-## `login <servicename>`
+### `login <servicename>`
 The login command takes two arguments. github or ngrok. It will then prompt you for your GitHub username and password, or your ngrok token respectively. It will store them in an encrypted manner locally and should retrieve them automatically from tha point on. 
 ```
 login github
