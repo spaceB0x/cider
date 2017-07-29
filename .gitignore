@@ -1,0 +1,8 @@
+node_modules/*
+repos/*
+!repos/.gitkeeprepos
+npm-debug.log
+configs/*
+!configs/.gitkeepconfigs
+
+
