@@ -60,5 +60,3 @@ Once in the sessions menu there are only a handful of commands to run
 ###`list`
 ###`back`
 ###`select`
-
-23719666
