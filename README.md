@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CIDER
 ## Continuous Integration and Deployment Exploiter
 
@@ -60,3 +61,6 @@ Once in the sessions menu there are only a handful of commands to run
 ###`list`
 ###`back`
 ###`select`
+=======
+# cider
+>>>>>>> a8d4d08bced9f4f6d0319dd266f759c1e7278652
