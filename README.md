@@ -5,11 +5,14 @@ CIDER is a framework written in node js that aims to harness the functions neces
 
 
 ## Setup
-### Prerequisites
-1.) Node JS version 8. Node is cross platform for both Windows, Linux, and OSX. 
-2.) Must also have the Node Package Manager installed (npm).
-3.) A github account, with an Oauth application enabled.
-4.) An ngrok account, which is free. You will need the authentication key from this
+### Prerequisites 
+1. Node JS version 8. Node is cross platform for both Windows, Linux, and OSX. 
+
+2. Must also have the Node Package Manager installed (npm).
+
+3. A github account, with an Oauth application enabled.
+
+4. An ngrok account, which is free. You will need the authentication key from this
 
 ### Configuration
 There has been effort put in to CIDER to make configuration as simple as possible. More convenience features may in future releases.
