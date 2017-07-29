@@ -28,36 +28,56 @@ node index.js
 You must have a GitHub account from which to launch these attacks. The idea being that your attacker account makes malicous pull requests against a target GitHub repository to test and exploit misconfigurations. Additionally you must have and OAuth application configured such that you can issue personal tokens from gitHub. CIDER will take care of generating a token for you, but the feature must be enabled in GitHub.
 
 ### `login <servicename>`
-The login command takes two arguments. github or ngrok. It will then prompt you for your GitHub username and password, or your ngrok token respectively. It will store them in an encrypted manner locally and should retrieve them automatically from tha point on. 
+The login command takes two arguments. `github` or `ngrok`. It will then prompt you for your GitHub username and password, or your ngrok token respectively. It will store them in an encrypted manner locally and should retrieve them automatically from tha point on. 
 ```
 login github
 ```
 
 NOTE: to login to gitHub after you already have a token will fail. This is because you already have a 'personal token' issued in gitHub for the CIDER service. You will have to delete that token in GitHub before running the login again. This is to prevent you from generating a billion freaking tokens by accident. 
 
-#### Ngrok configuration
+## Ngrok configuration
 This is the same as above, however you will simply be prompted for your Ngrok auth token which can be grabbed from your account. 
 ```
 login ngrok
 ```
 
+## Main Commands
 ### `help`
+Lists the help menu
 
 ### `clear`
+Clears the screen
 
 ### `list`
+Lists the following items which it takes as arguments
+  - __targets__  *Lists all repositories that are in the targets list. These are what the will attempt to be exploited when running and exploit.
+  - __exploits__ *Lists all available exploits. 
 
 ### `add`
+This addes a target. Takes arguments 'target' and then the target repo name. Ex `add target <ownername>/<reponame>`
 
 ### `remove`
+This removes a target. Takes arguments 'target' and then the target repo name. Ex `remove target <ownername>/<reponame>`
+
 ### `load`
+Loads an exploit to be used. Ex. `load <exploitname>`. Available exploits can be found by `list exploits`
+
 ### `unload`
+Unloads the currently loaded exploit.
+
 ### `info`
-### `sessions
+Lists info for the currently loaded exploits. Does not work if no exploit is loaded.
+
+### `sessions`
+This takes you to the sessions menu for managing live callback sessions.
 
 ## Sessions menu
 Once in the sessions menu there are only a handful of commands to run
 ### `list`
-### `back`
-### `select`
+Lists the available sessions.
 
+### `back`
+This serves two purposes. If you are in the base SESSIONS menu it will return you to the CIDER menu. If you are currently in a running session, it will retrun you to the SESSIONS menu.
+
+### `select`
+This selects a session shell to drop into. Takes the form `select <sessionname>`. 
