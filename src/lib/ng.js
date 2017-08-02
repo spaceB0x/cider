@@ -19,7 +19,9 @@ module.exports = {
         if (value.length) {
           return true;
         }
-        return 'Please enter your Ngrok Token. It can be found by signing in to your Ngrok account.';        
+        else {
+          return 'Please enter your Ngrok Token. It can be found by signing in to your Ngrok account.';
+        }        
       }
     }];
     inquirer.prompt(questions).then(callback);
@@ -37,11 +39,13 @@ module.exports = {
       log(chalk.green("Ngrok token found"));
       return callback(null, prefs.ngrok.token);
     }
-    module.exports.getNgrokToken((creds) => {
-      prefs.ngrok = {
-        token: creds.token
-      };
-      return callback(null, creds.token);
-    });
+    else {
+      module.exports.getNgrokToken((creds) => {
+        prefs.ngrok = {
+          token: creds.token
+        };
+        return callback(null, creds.token);
+      });
+    }
   }
 }

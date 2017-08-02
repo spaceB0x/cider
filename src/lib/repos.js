@@ -32,10 +32,11 @@ module.exports = {
   cloneRepo: (type, repo_name, authed_user, callback) => {
 
     dirs_arr = repo_name.split('/');
-    let reponame;
+    var reponame;
     if (type == "forked") {
       reponame = `${authed_user}/${dirs_arr[1]}`;
-    } else {
+    } 
+    else {
       reponame = repo_name;
     }
 
@@ -45,7 +46,7 @@ module.exports = {
       return callback();
     }
     // If organization folder exists
-    if (files.directoryExists(`${repodir}/${dirs_arr[0]}`)) {
+    else if (files.directoryExists(`${repodir}/${dirs_arr[0]}`)) {
       // If git repo found
       if (!files.directoryExists(`${repodir}/${reponame}/.git`) && !files.directoryExists(`${repodir}/${reponame}`)) {
         log(chalk.green(`Cloning github.com/${reponame}.git`))
@@ -54,18 +55,22 @@ module.exports = {
           return callback();
         });
       } 
-      log(chalk.yellow(`The repo ${reponame} already exists`));
-      return callback();
+      else {
+        log(chalk.yellow(`The repo ${reponame} already exists`));
+        return callback();
+      }
       
 
+    } 
+    else {
+      // Make org folder, and clone repo
+      fs.mkdirSync(`${repodir}/${dirs_arr[0]}`);
+      fs.mkdirSync(`${repodir}/${reponame}`)
+      git.clone(`https://github.com/${reponame}.git`, `${repodir}/${reponame}`, () => {
+        log(chalk.green(`https://github.com/${reponame}.git cloned successfully`));
+        return callback();
+      });
     }
-    // Make org folder, and clone repo
-    fs.mkdirSync(`${repodir}/${dirs_arr[0]}`);
-    fs.mkdirSync(`${repodir}/${reponame}`)
-    git.clone(`https://github.com/${reponame}.git`, `${repodir}/${reponame}`, () => {
-      log(chalk.green(`https://github.com/${reponame}.git cloned successfully`));
-      return callback();
-    });
   },
 
   //Clone all repositories in targets list
@@ -160,7 +165,7 @@ module.exports = {
 
   //Check if fork exists in authenticated user's repo
   forkExists: (reponame, token, authed_user, callback) => {
-    const repo_arr = reponame.split("/");
+    var repo_arr = reponame.split("/");
     github.repos.getForks({
       headers: {
         "Authorization": `token ${token}`
@@ -172,20 +177,24 @@ module.exports = {
         log(err);
         return callback(false);
       } 
-      if (res) {
+      else if (res) {
         const data_arr = res.data,
               full_name_array = _.map(data_arr, 'full_name');
         if (err) {
           log(err);
           return callback(false);
         }
-        if (full_name_array.includes(`${authed_user}/${repo_arr[1]}`)) {
+        else if (full_name_array.includes(`${authed_user}/${repo_arr[1]}`)) {
           return callback(true);
+        } 
+        else {
+          return callback(false);
         }
+      }
+      else {
+        log(chalk.red("Could not find a response to the request for forks"));
         return callback(false);
       }
-      log(chalk.red("Could not find a response to the request for forks"));
-      return callback(false);
     });
   },
 
@@ -204,7 +213,9 @@ module.exports = {
         log(chalk.red(`There was a problem forking the repo: ${err}`));
         return callback();
       }
-      return callback();
+      else {
+        return callback();
+      }
     });
   },
 
@@ -218,11 +229,13 @@ module.exports = {
         log(chalk.yellow(`Repo ${reponame} already forked for user ${authed_user}`));
         return callback();
       }
-      // If organization folder exists
-      module.exports.requestFork(reponame, token, () => {
-        log(chalk.green(`https://github.com/${reponame}.git forked successfully`));
-        return callback();
-      });
+      else {
+        // If organization folder exists
+        module.exports.requestFork(reponame, token, () => {
+          log(chalk.green(`https://github.com/${reponame}.git forked successfully`));
+          return callback();
+        });
+      }
     });
   },
 

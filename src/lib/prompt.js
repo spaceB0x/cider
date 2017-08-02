@@ -31,7 +31,8 @@ function mainPrompt() {
   let add_prompt;
   if (loaded_exploit) {
     add_prompt = ` [${chalk.red(loaded_exploit.name())}]`;
-  } else {
+  } 
+  else {
     add_prompt = '';
   }
 
@@ -222,7 +223,8 @@ function sessionLoop() {
 function sessionCB(num) {
   if (num) {
     sessionLoop();
-  } else {
+  } 
+  else {
     mainPrompt();
   }
 }

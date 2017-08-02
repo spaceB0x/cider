@@ -58,11 +58,15 @@ function sessionPrompt(callback) {
               return callback(1);
             });
           } 
-          log(chalk.red("Invalid. Session does not exist."));
+          else {
+            log(chalk.red("Invalid. Session does not exist."));
+            return callback(1);
+          }
+        }
+        else {
+          log(chalk.red("You must pick a valid session to select."));
           return callback(1);
         }
-        log(chalk.red("You must pick a valid session to select."));
-        return callback(1);
         break;
       case 'test':
         log(loaded_session);

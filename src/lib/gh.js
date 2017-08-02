@@ -27,7 +27,9 @@ module.exports = {
         if (value.length) {
           return true;
         }
-        return 'Please enter your username or e-mail address';
+        else {
+          return 'Please enter your username or e-mail address';
+        }
       }
     },
     {
@@ -38,8 +40,9 @@ module.exports = {
         if (value.length) {
           return true;
         }
-        return 'Please enter your password';
-          
+        else {
+          return 'Please enter your password';
+        }
       }
     }];
     inquirer.prompt(questions).then(callback);
@@ -54,39 +57,41 @@ module.exports = {
       log(chalk.green("GitHub token found"));
       return callback(null, prefs.github.token, prefs.github.username);
     }
-    // Fetch token
-    module.exports.getGithubCredentials((credentials) => {
-      const uname = credentials.username,
-            status = new Spinner('Authenticating you, please wait...');
-      authStatus.start();
-      github.authenticate(
-        _.extend({
-            type: 'basic',
-          },
-          credentials
-        )
-      );
+    else {
+      // Fetch token
+      module.exports.getGithubCredentials((credentials) => {
+        const uname = credentials.username,
+              status = new Spinner('Authenticating you, please wait...');
+        authStatus.start();
+        github.authenticate(
+          _.extend({
+              type: 'basic',
+            },
+            credentials
+          )
+        );
 
-      github.authorization.create({
-        scopes: ['user', 'public_repo', 'repo', 'repo:status'],
-        note: 'cider'
-      }, function (err, res) {
-        authStatus.stop();
-        if (err) {
-          log(`Error at github.authorization.create ${err}`);
-          return callback(err);
-        }
-        if (res.data.token) {
-          log(chalk.green("Success. Caching encrypted OAuth token"));
-          prefs.github = {
-            token: res.data.token,
-            username: uname
-          };
-          return callback(null, res.data.token, uname);
-        }
-        return callback();
-      });
-    });    
+        github.authorization.create({
+          scopes: ['user', 'public_repo', 'repo', 'repo:status'],
+          note: 'cider'
+        }, function (err, res) {
+          authStatus.stop();
+          if (err) {
+            log(`Error at github.authorization.create ${err}`);
+            return callback(err);
+          }
+          if (res.data.token) {
+            log(chalk.green("Success. Caching encrypted OAuth token"));
+            prefs.github = {
+              token: res.data.token,
+              username: uname
+            };
+            return callback(null, res.data.token, uname);
+          }
+          return callback();
+        });
+      });  
+    }  
   },
 
   /*

@@ -13,7 +13,7 @@ module.exports = {
   // return the nc server and associated duplex stream
   startNetcatListener: async(port, callback) => {
     // Establish reader/writer streams
-    const duplexIn = createDuplexStream(),
+    var duplexIn = createDuplexStream(),
       duplexOut = createDuplexStream(),
       nc = new NetcatServer();
     await nc.port(port)
@@ -93,10 +93,12 @@ module.exports = {
         log(chalk.red(`Error with startNgrokConnect: ${err}`))
         return callback(err);
       }
-      let host_port_arr = url.replace("tcp://", "").split(':'),
-          h = host_port_arr[0],
-          p = host_port_arr[1];
-      return callback(null, h, p, server, url);      
+      else {
+        let host_port_arr = url.replace("tcp://", "").split(':'),
+            h = host_port_arr[0],
+            p = host_port_arr[1];
+        return callback(null, h, p, server, url);      
+      }
     })
   },
 
@@ -147,7 +149,9 @@ module.exports = {
     if (!global.shells_arr) {
       return 0
     }
-    return global.shells_arr.length;
+    else {
+      return global.shells_arr.length;
+    }
   },
 }
 

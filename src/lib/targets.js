@@ -128,8 +128,10 @@ module.exports = {
         });
       });
     } 
-    log(chalk.red("Invalid target. Target repos must be in the format 'owner/reponame'"));
-    return callback();
+    else {
+      log(chalk.red("Invalid target. Target repos must be in the format 'owner/reponame'"));
+      return callback();
+    }
     
   },
 
@@ -147,8 +149,10 @@ module.exports = {
           return callback();
         });
       } 
-      log(chalk.red(`Target ${target}not found`));
-      return callback();
+      else {
+        log(chalk.red(`Target ${target}not found`));
+        return callback();
+      }
       
     });
   },
