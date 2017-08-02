@@ -14,8 +14,8 @@ module.exports = {
   startNetcatListener: async(port, callback) => {
     // Establish reader/writer streams
     var duplexIn = createDuplexStream(),
-      duplexOut = createDuplexStream(),
-      nc = new NetcatServer();
+        duplexOut = createDuplexStream(),
+        nc = new NetcatServer();
     await nc.port(port)
       .listen()
       .k()
