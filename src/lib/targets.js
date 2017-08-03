@@ -100,9 +100,6 @@ module.exports = {
       case 'circle':
         f = ".circleci/config.yml";
         break;
-      case 'gitlab':
-        f = ".gitlab-ci.yml";
-        break;
       default:
         return callback();
     }
