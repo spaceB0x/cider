@@ -10,9 +10,6 @@ const inquirer = require('inquirer'),
 fs.exists(targetlist, (exists) => { 
   if (!exists) { 
     fs.openSync(targetlist, 'w');
-    //fs.writeFile(targetlist, { flag: 'wx' }, (err) => {
-        //if (err) throw err;
-    //});
   }
 });
 
