@@ -6,10 +6,10 @@ CIDER is a framework written in node js that aims to harness the functions neces
 
 ## Setup
 ### Prerequisites 
-* Node JS version 8. Node is cross platform for both Windows, Linux, and OSX. 
+* Node JS version 8.2.1 Node is cross platform for both Windows, Linux, and OSX. NOTE: For OSX I highly recommend downloading npm and    Node.js from the respective download links, instead of using brew. This can cause many frustrating problems. https://nodejs.org/en/
 * Must also have the Node Package Manager installed (npm).
 * A github account, with an Oauth application enabled.
-* An ngrok account, which is free. You will need the authentication key from this
+* An ngrok account, which is free. You will need the authentication key from this. https://ngrok.com/
 
 ### Configuration
 There has been effort put in to CIDER to make configuration as simple as possible. More convenience features may in future releases.
@@ -33,7 +33,14 @@ The login command takes two arguments. `github` or `ngrok`. It will then prompt 
 login github
 ```
 
-NOTE: to login to gitHub after you already have a token will fail. This is because you already have a 'personal token' issued in gitHub for the CIDER service. You will have to delete that token in GitHub before running the login again. This is to prevent you from generating a billion freaking tokens by accident. 
+__NOTE__: to login to gitHub after you already have a token will fail. This is because you already have a 'personal token' issued in gitHub for the CIDER service. You will have to delete that token in GitHub before running the login again. This is to prevent you from generating a billion freaking tokens by accident. 
+
+__ANOTHER NOTE__: There is currently a bug with the login feature. Once you enter your credentials they will only retain once you exit CIDER and open it back up again. So currently the workaround for say the ngrok login; is to first do 
+    1.) __login ngrok__
+    2.) Enter Creds
+    3.) __exit__
+    4.) Reopen CIDER
+Working on a fix for this
 
 ## Ngrok configuration
 This is the same as above, however you will simply be prompted for your Ngrok auth token which can be grabbed from your account. 
