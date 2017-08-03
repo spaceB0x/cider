@@ -100,6 +100,9 @@ module.exports = {
       case 'circle':
         f = ".circleci/config.yml";
         break;
+      case 'gitlab':
+        f = ".gitlab-ci.yml";
+        break;
       default:
         return callback();
     }
@@ -120,9 +123,14 @@ module.exports = {
         if (err) {
           log(chalk.red(err));
         }
-        const lines = data.split('\n');
-        lines.push(`${target}`);
-
+        let lines = [];
+        if(data.length === 0) {      
+          lines.push(`${target}`);
+        }
+        else {
+          lines = data.split('\n');
+          lines.push(`${target}`);
+        }
         fs.writeFile(targetlist, lines.join('\n'), () => {
           return callback();
         });

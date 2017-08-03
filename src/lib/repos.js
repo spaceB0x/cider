@@ -49,7 +49,7 @@ module.exports = {
     else if (files.directoryExists(`${repodir}/${dirs_arr[0]}`)) {
       // If git repo found
       if (!files.directoryExists(`${repodir}/${reponame}/.git`) && !files.directoryExists(`${repodir}/${reponame}`)) {
-        log(chalk.green(`Cloning github.com/${reponame}.git`))
+        log(chalk.green(`Cloning github.com/${reponame}.git`));
         git.clone(`https://github.com/${reponame}.git`, `${repodir}/${reponame}`, () => {
           log(chalk.green(`https://github.com/${reponame}.git cloned successfully`));
           return callback();
@@ -65,7 +65,7 @@ module.exports = {
     else {
       // Make org folder, and clone repo
       fs.mkdirSync(`${repodir}/${dirs_arr[0]}`);
-      fs.mkdirSync(`${repodir}/${reponame}`)
+      fs.mkdirSync(`${repodir}/${reponame}`);
       git.clone(`https://github.com/${reponame}.git`, `${repodir}/${reponame}`, () => {
         log(chalk.green(`https://github.com/${reponame}.git cloned successfully`));
         return callback();
