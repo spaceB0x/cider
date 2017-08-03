@@ -1,32 +1,32 @@
-var log = console.log;
-var fs = require('fs');
-var clear = require('clear');
-var chalk = require('chalk');
-var path = require('path');
-var exdir = __dirname + '/../exploits';
-var expath = path.resolve(exdir);
-var files = require(__dirname + '/files');
+const log = console.log;
+      fs = require('fs'),
+      clear = require('clear'),
+      chalk = require('chalk'),
+      path = require('path'),
+      exdir = __dirname + '/../exploits',
+      expath = path.resolve(exdir),
+      files = require(__dirname + '/files'),
 
 module.exports = {
 
-    //Prints list of exploits
-    printExploits: () => {
-        clear();
-        log(chalk.green("-----------------", "\n Exploits", "\n-----------------"));
-        var exlist = files.walkSync(exdir);
-        var tlist = []
-        exlist.forEach((item) => {
-            if (item.includes("exploit.js")) {
-                tlist.push(item);
-                log(item.replace(`${expath}/`, '').replace('/exploit.js',''));
-            }
-        })
-        log();
-        return tlist;
-    },
+  //Prints list of exploits
+  printExploits: () => {
+    clear();
+    log(chalk.green("-----------------", "\n Exploits", "\n-----------------"));
+    const exlist = files.walkSync(exdir),
+          tlist = [];
+    exlist.forEach((item) => {
+      if (item.includes("exploit.js")) {
+          tlist.push(item);
+          log(item.replace(`${expath}/`, '').replace('/exploit.js',''));
+      }
+    });
+    log();
+    return tlist;
+  },
 
-    //Checks if exploits exist
-    exploitExists: (exploit) =>{
-        return fs.existsSync(`${exdir}/${exploit}/exploit.js`);
-    }
+  //Checks if exploits exist
+  exploitExists: (exploit) => {
+      return fs.existsSync(`${exdir}/${exploit}/exploit.js`);
+  }
 }
