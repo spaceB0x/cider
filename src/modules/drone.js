@@ -23,8 +23,10 @@ module.exports = {
         return callback();
       }));
     }
-    log(chalk.yellow(`Tried to load ${exploit}, but ${repo_name} does not appear to be a Drone-Repository`));
-    return callback();
+    else {
+      log(chalk.yellow(`Tried to load ${exploit}, but ${repo_name} does not appear to be a Drone-Repository`));
+      return callback();
+    }
   },
 
   loadDroneConfigAll: (exploit, authed_user, drone_targets, callback) => {

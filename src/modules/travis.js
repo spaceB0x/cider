@@ -23,8 +23,10 @@ module.exports = {
         return callback();
       }));
     }
-    log(chalk.yellow(`Tried to load ${exploit}, but ${repo_name} does not appear to be a Travis-Repository`));
-    return callback();
+    else {
+      log(chalk.yellow(`Tried to load ${exploit}, but ${repo_name} does not appear to be a Travis-Repository`));
+      return callback();
+    }
   },
 
   loadTravisConfigAll: (exploit, authed_user, travis_targets, callback) => {

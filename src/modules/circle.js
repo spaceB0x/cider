@@ -22,9 +22,11 @@ module.exports = {
         log(chalk.green(`Circle config for ${repo_name} successfully overwritten`));
         return callback();
       }));
-    } 
-    log(chalk.yellow(`Tried to load ${exploit}, but ${repo_name} does not appear to be a Circle-Repository`));
-    return callback();
+    }
+    else {
+      log(chalk.yellow(`Tried to load ${exploit}, but ${repo_name} does not appear to be a Circle-Repository`));
+      return callback();
+    }
   },
 
   loadCircleConfigAll: (exploit, authed_user, circle_targets, callback) => {
