@@ -1,11 +1,17 @@
-var inquirer = require('inquirer');
-var touch = require('touch');
-var fs = require('fs');
-var files = require(__dirname + '/lib/files');
-var menu = require(__dirname + '/lib/menu');
-var prompt = require(__dirname + '/lib/prompt')
-var chalk = require('chalk');
+const inquirer = require('inquirer'),
+      touch = require('touch'),
+      fs = require('fs'),
+      files = require(__dirname + '/lib/files'),
+      menu = require(__dirname + '/lib/menu'),
+      prompt = require(__dirname + '/lib/prompt'),
+      targetlist = __dirname + '/../configs/repos',
+      chalk = require('chalk');
 
+fs.exists(targetlist, (exists) => { 
+  if (!exists) { 
+    fs.openSync(targetlist, 'w');
+  }
+});
 
 //print banner
 menu.printBanner();
