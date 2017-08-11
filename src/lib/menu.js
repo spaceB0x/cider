@@ -43,7 +43,7 @@ module.exports = {
     log(chalk.cyan('     ngrok'));
     log(chalk.cyan('  clear') + chalk.gray('\t\t\t=> Clear screen'));
     log("\n");
-    log("-----------------------", "\n Exploit Commands  |", "\n-----------------------\n");
+    log("--------------------", "\n Exploit Commands  |", "\n--------------------\n");
     log(chalk.cyan('  list') + chalk.gray('\t\t\t=> Lists assets based on the options give'));
     log(chalk.cyan('     targets') + chalk.gray('\t\t=> Prints all targets in target list'));
     log(chalk.cyan('     repos') + chalk.gray('\t\t=> Prints repositories currently pulled down.'));
