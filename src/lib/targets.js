@@ -15,9 +15,9 @@ module.exports = {
     });
 
     clear();
-    log(chalk.green("-----------------", "\n GitHub Targets", "\n-----------------"));
+    log(chalk.cyan("-----------------", "\n GitHub Targets", "\n-----------------"));
     rd.on('line', (line) => {
-      log(chalk.green(`${line}`));
+      log(chalk.white(`${line}`));
     }).on('close', () => {
       return callback();
     });

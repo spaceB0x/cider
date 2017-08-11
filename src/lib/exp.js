@@ -12,7 +12,7 @@ module.exports = {
   //Prints list of exploits
   printExploits: () => {
     clear();
-    log(chalk.green("-----------------", "\n Exploits", "\n-----------------"));
+    log(chalk.cyan("------------", "\n Exploits ", "\n------------"));
     const exlist = files.walkSync(exdir),
           tlist = [];
     exlist.forEach((item) => {
@@ -28,5 +28,7 @@ module.exports = {
   //Checks if exploits exist
   exploitExists: (exploit) => {
       return fs.existsSync(`${exdir}/${exploit}/exploit.js`);
-  }
+  },
+
+  
 }

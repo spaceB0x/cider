@@ -125,7 +125,7 @@ function loadSession(session, callback) {
 }
 
 function listSessions() {
-  log(chalk.green("  Sessions  \n------------"));
+  log(chalk.cyan("------------\n  Sessions  \n------------"));
   for (let s in global.shells_arr) {
     log(`${global.session_name_arr[s]}`);
   }
@@ -143,7 +143,7 @@ function isSession(name) {
 
 function printSessionHelp() {
   clear();
-  log("\n-----------------\n  Sessions Help  \n-----------------\n");
+  log("\n------------------\n  Sessions Help  \n------------------\n");
   log(chalk.cyan('  help') + chalk.gray('\t\t\t  => Prints help menu for Sessions'));
   log(chalk.cyan('  back') + chalk.gray('\t\t\t  => Returns to the main CIDER prompt. Also exits out of a shell if in one'));
   log(chalk.cyan('  list') + chalk.gray('\t\t\t  => Lists existing shells'));
