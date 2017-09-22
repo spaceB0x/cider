@@ -2,6 +2,7 @@ const log = console.log,
       readline = require('readline'),
       fs = require('fs'),
       chalk = require('chalk'),
+      red = chalk.red,
       files = require(__dirname + '/files'),
       targetlist = __dirname + '/../../configs/repos',
       repodir = __dirname + '/../../repos',
@@ -48,6 +49,8 @@ module.exports = {
       case 'travis':
         f = ".travis.yml";
         break;
+      case 'drone':
+        f = ".drone.yml"
       default:
         return callback();
     }
@@ -86,7 +89,8 @@ module.exports = {
 
   /* Returns two arrays
     1.) The first  of targets of a certain type (eg. travis, drone, etc.) */
-  getForkedTargetType: (type, username, callback) => {
+  getForkedTargetType: (type, username, fork_type, callback) => {
+
     let f,
         typearr = [],
         ftypearr = [];
@@ -101,14 +105,23 @@ module.exports = {
         f = ".circleci/config.yml";
         break;
       default:
+        log(red(`Fork Target Type ${type} not found`));
         return callback();
     }
     module.exports.getForkedTargetArray(username, (tarr, ftarr) => {
       for (let line in ftarr) {
+        if(fork_type == 'forked'){
         if (files.fileExists(`${repodir}/${ftarr[line]}/${f}`)) {
           typearr.push(tarr[line]);
           ftypearr.push(ftarr[line]);
         }
+      }
+      else{
+        if (files.fileExists(`${repodir}/${tarr[line]}/${f}`)) {
+          typearr.push(tarr[line]);
+          ftypearr.push(ftarr[line]);
+        }
+      }
       }
       return callback(typearr, ftypearr);
     });

