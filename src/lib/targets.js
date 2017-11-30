@@ -51,6 +51,10 @@ module.exports = {
         break;
       case 'drone':
         f = ".drone.yml"
+        break;
+      case 'jenkins':
+        f = "Jenkinsfile"
+        break;
       default:
         return callback();
     }
@@ -103,6 +107,9 @@ module.exports = {
         break;
       case 'circle':
         f = ".circleci/config.yml";
+        break;
+      case 'jenkins':
+        f = "Jenkinsfile";
         break;
       default:
         log(red(`Fork Target Type ${type} not found`));
