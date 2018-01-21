@@ -288,6 +288,7 @@ module.exports = {
                   log(green("Starting ngrok Services..."));
                   server.startNgrokConnect(nc_port, ng_token, (err, hostname, ng_port, ng_server, ng_url) => {
                     if (err) {
+                      log("poop");
                       log(err);
                       return cb(err);
                     } else {

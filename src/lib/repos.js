@@ -5,6 +5,7 @@ const log = console.log,
       crypto = require('crypto'),
       fs = require('fs'),
       files = require(__dirname + '/files'),
+      red =chalk.red;
       readline = require('readline'),
       repolist = __dirname + '/../../configs/repos',
       repodir = __dirname + '/../../repos',
@@ -64,8 +65,19 @@ module.exports = {
     } 
     else {
       // Make org folder, and clone repo
-      fs.mkdirSync(`${repodir}/${dirs_arr[0]}`);
-      fs.mkdirSync(`${repodir}/${reponame}`);
+      try {
+        fs.mkdirSync(`${repodir}/${dirs_arr[0]}`)
+      } catch(err){
+        if(err){
+          log(`Error is ${err}`)
+        }
+      };
+      // try {fs.mkdirSync(`${repodir}/${reponame}`)}
+      // catch(err){
+      //   if(err){
+      //     log(`Error is poop ${err}`)
+      //   }
+      // };
       git.clone(`https://github.com/${reponame}.git`, `${repodir}/${reponame}`, () => {
         log(chalk.green(`https://github.com/${reponame}.git cloned successfully`));
         return callback();
