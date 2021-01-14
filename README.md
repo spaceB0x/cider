@@ -1,3 +1,6 @@
+### UPDATE/ANNOUNCEMENT: 
+I will be ending support for this framework, and likely will start working on a new implementation for an exploit and recond framework for CI/CD. I was convinced that I had announced this already, but I guess I had not. I will remain public, so as not to break any existing implementations or integrations. Much love. spaceB0x 
+
 # CIDER
 ## Continuous Integration and Deployment Exploiter
 
