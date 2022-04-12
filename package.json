@@ -33,7 +33,7 @@
     "netcat": "^1.2.8",
     "ngrok": "^2.2.11",
     "preferences": "^0.2.1",
-    "simple-git": "^1.73.0",
+    "simple-git": "^3.5.0",
     "touch": "^1.0.0"
   }
 }
